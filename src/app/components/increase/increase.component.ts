@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-increase',
@@ -14,7 +15,6 @@ export class IncreaseComponent implements OnInit {
   @Output() emitValue: EventEmitter<number> = new EventEmitter();
   // Decorador para hacer referencia al elemento del html del cuál se está haciendo el cambio
   // Recibe cómo parámetro el elemto html, luego se hace una referencia al txtProgress
-  // la manipulación no será a través del ElementRef, sino mediante el servicio Renderer2
   @ViewChild('txtProgress') txtProgress: ElementRef;
 
   // private renderer: Renderer2
@@ -37,7 +37,7 @@ export class IncreaseComponent implements OnInit {
     }
 
      // elementHtml.value = this.progress;
-    this.txtProgress.nativeElement.value = this.progress;
+     this.txtProgress.nativeElement.value = this.progress;
 
      this.emitValue.emit( this.progress );
 
