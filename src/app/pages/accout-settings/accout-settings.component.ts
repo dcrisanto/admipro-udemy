@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject, ElementRef } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Component, OnInit, ElementRef } from '@angular/core';
+import { SettingsService } from '../../services/settings.service';
 
 
 @Component({
@@ -9,16 +9,15 @@ import { DOCUMENT } from '@angular/common';
 })
 export class AccoutSettingsComponent implements OnInit {
   // Con este inyectable tenemos acceso a todo el DOM
-  constructor( @Inject(DOCUMENT) private _document) { }
+  // Importando el servicio settings para poder tener acceso a todos sus propiedades y métodos
+  constructor( private _settings: SettingsService) { }
 
   ngOnInit() {
   }
 
   changeColor( topic: string, link: ElementRef ) {
     this.addCheck( link );
-    // plecas para hacer un template
-    const url = `assets/css/colors/${ topic }.css`;
-    this._document.getElementById('topic').setAttribute('href', url);
+    this._settings.applyTopic( topic );
   }
 
   addCheck( link: any) {
