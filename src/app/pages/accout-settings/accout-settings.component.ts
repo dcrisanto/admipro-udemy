@@ -13,6 +13,9 @@ export class AccoutSettingsComponent implements OnInit {
   constructor( private _settings: SettingsService) { }
 
   ngOnInit() {
+    // Al cargar el componente se disparará la función que va ha revisar que elemento del html cuenta
+    // con la clase working
+    this.checkPersistence();
   }
 
   changeColor( topic: string, link: ElementRef ) {
@@ -30,6 +33,21 @@ export class AccoutSettingsComponent implements OnInit {
 
     link.classList.add('working');
 
+  }
+
+  checkPersistence() {
+    // Todos los elementos que contengan la clase selectors
+    const selectors: any = document.getElementsByClassName('selector');
+    // Creando variable para hacer referencia al tema que se encuentra en el servicio
+    const topic = this._settings.settings.topic;
+    for ( const ref of selectors) {
+      // Validar sobre la referencia
+      if ( ref.getAttribute('data-theme') === topic ) {
+        ref.classList.add('working');
+        // Cómo ya no habrán más elementos que contenga el atributo salgo del ciclo for
+        break;
+      }
+    }
   }
 
 }
