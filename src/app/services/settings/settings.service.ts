@@ -19,17 +19,16 @@ export class SettingsService {
 
   // Método para mantener la persistencia, convirtiendo a string porq solo eso permite guardar
   saveSettings() {
-    console.log('Guardar en el localStorage');
     localStorage.setItem('settings', JSON.stringify(this.settings));
   }
   // Obtener settings, primero valido que exista settings
   loadSettings() {
+    // Cargando del localStorage
     if ( localStorage.getItem('settings')) {
         this.settings = JSON.parse(localStorage.getItem('settings'));
-        console.log('Cargando del localStorage');
         this.applyTopic( this.settings.topic );
+    // Usando los valores por defecto
     } else {
-      console.log('usando valores por defecto');
       this.applyTopic( this.settings.topic );
     }
   }
