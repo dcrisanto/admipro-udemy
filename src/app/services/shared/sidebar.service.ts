@@ -12,7 +12,8 @@ export class SidebarService {
         // Si no se coloca pleca indico indico que es para manejar una sub-ruta.
         { title: 'Dashboard', url: '/dashboard' },
         { title: 'ProgressBar', url: '/progress' },
-        { title: 'Gráficas', url: '/graficas1' }
+        { title: 'Gráficas', url: '/graficas1' },
+        { title: 'Promises', url: '/promises' }
       ]
     }
   ];

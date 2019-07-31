@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { IncreaseComponent } from '../components/increase/increase.component';
 import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.component';
 import { AccoutSettingsComponent } from './accout-settings/accout-settings.component';
+import { PromisesComponent } from './promises/promises.component';
 
 @NgModule({
     declarations: [
@@ -23,7 +24,8 @@ import { AccoutSettingsComponent } from './accout-settings/accout-settings.compo
         Graficas1Component,
         IncreaseComponent,
         GraficoDonaComponent,
-        AccoutSettingsComponent
+        AccoutSettingsComponent,
+        PromisesComponent
     ],
     // Las exportamos para que puedan ser utilizadas por otros módulos
     exports: [
