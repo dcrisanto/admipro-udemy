@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscriber } from 'rxjs';
 import { retry, map, filter } from 'rxjs/operators';
 
@@ -7,13 +7,16 @@ import { retry, map, filter } from 'rxjs/operators';
   templateUrl: './rxjs.component.html',
   styles: []
 })
-export class RxjsComponent implements OnInit {
+export class RxjsComponent implements OnInit, OnDestroy {
+
+  // Crear una referencia
+   subscription: Subscription;
 
   constructor() {
     // Para escuchar al observable me debo subscribir
     // Para volver a intertarlo usamos retry, se vuelve a subscribir, de parámetro se puede enviar
     // la cantidad de reintentos que se requiere.
-    this.returnsObservable()
+    this.subscription = this.returnsObservable()
     // .pipe(
       // retry(2)
     // )
@@ -31,6 +34,11 @@ export class RxjsComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    console.log('saliendo del componente')
+    this.subscription.unsubscribe();
+  }
+
   // Se indica a la función que tipo devolverá
   returnsObservable(): Observable<number> {
 
@@ -44,11 +52,11 @@ export class RxjsComponent implements OnInit {
         };
         // El observable notificará mediante el next cada que llegue información.
         observer.next( output );
-        if ( counter === 3 ) {
+        /*if ( counter === 3 ) {
           clearInterval( interval );
           // Indicar que terminó
           observer.complete();
-        }
+        }*/
         // Manejando el error
         // if ( counter === 2 ) {
           // clearInterval( interval );
