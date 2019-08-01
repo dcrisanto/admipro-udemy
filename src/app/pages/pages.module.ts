@@ -15,6 +15,7 @@ import { IncreaseComponent } from '../components/increase/increase.component';
 import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.component';
 import { AccoutSettingsComponent } from './accout-settings/accout-settings.component';
 import { PromisesComponent } from './promises/promises.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import { PromisesComponent } from './promises/promises.component';
         IncreaseComponent,
         GraficoDonaComponent,
         AccoutSettingsComponent,
-        PromisesComponent
+        PromisesComponent,
+        RxjsComponent
     ],
     // Las exportamos para que puedan ser utilizadas por otros módulos
     exports: [
