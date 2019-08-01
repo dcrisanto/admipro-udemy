@@ -9,9 +9,32 @@ import { retry } from 'rxjs/operators'
 })
 export class RxjsComponent implements OnInit {
 
-  constructor() { 
-      // Objeto observer de tipo subscribe pero no es necesario especificarlo
-    let obs = new Observable( observer => {
+  constructor() {
+    // Para escuchar al observable me debo subscribir
+    // Para volver a intertarlo usamos retry, se vuelve a subscribir, de parámetro se puede enviar
+    // la cantidad de reintentos que se requiere.
+    this.returnsObservable().pipe(
+      retry(2)
+    )
+    // El obs tiene 3 callback
+    .subscribe(
+      // 1° Callback: Cuando se llama un next, se recibe algo, lo que esté emitiendo el observador
+      number => console.log('Subs ', number),
+      // 2° Callback: Cuando se presenta un error
+      error => console.error('Error en el obs ', error),
+      // 3° Callback: No recibe ningún parámetro, es cuando termina
+      () => console.log('El Observador Terminó')
+    );
+  }
+
+  ngOnInit() {
+  }
+  
+  // Se indica a la función que tipo devolverá
+  returnsObservable(): Observable<number> {
+
+     // Objeto observer de tipo subscribe pero no es necesario especificarlo
+     return new Observable( observer => {
       let counter = 0;
       let interval = setInterval( () => {
         counter += 1;
@@ -29,25 +52,8 @@ export class RxjsComponent implements OnInit {
         }
       }, 1000);
     });
+    // return obs;
 
-    // Para escuchar al observable me debo subscribir
-    // Para volver a intertarlo usamos retry, se vuelve a subscribir, de parámetro se puede enviar
-    // la cantidad de reintentos que se requiere.
-    obs.pipe(
-      retry(2)
-    )
-    // El obs tiene 3 callback
-    .subscribe(
-      // 1° Callback: Cuando se llama un next, se recibe algo, lo que esté emitiendo el observador
-      number => console.log('Subs ', number),
-      // 2° Callback: Cuando se presenta un error
-      error => console.error('Error en el obs ', error),
-      // 3° Callback: No recibe ningún parámetro, es cuando termina
-      () => console.log('El Observador Terminó')
-    );
-  }
-
-  ngOnInit() {
   }
 
 }
