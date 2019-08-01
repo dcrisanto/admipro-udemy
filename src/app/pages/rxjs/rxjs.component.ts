@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subscriber } from 'rxjs';
-import { retry, map } from 'rxjs/operators';
+import { retry, map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-rxjs',
@@ -55,10 +55,19 @@ export class RxjsComponent implements OnInit {
            // observer.error('Aún no llega al 3 ')
         // }
       }, 1000);
-
     }).pipe(
       // Recibo la respuesta en bruto y la transforma
-      map( resp => resp.value )
+      map( resp => resp.value ), 
+      // Recibe como argumento una función
+      filter( ( value, index) => {
+        if ( (value % 2) === 1 ) {
+          // Impar
+          return true;
+        } else {
+          // Par
+          return false;
+        }
+      })
     );
 
   }
