@@ -52,11 +52,11 @@ export class RxjsComponent implements OnInit, OnDestroy {
         };
         // El observable notificará mediante el next cada que llegue información.
         observer.next( output );
-        /*if ( counter === 3 ) {
+        if ( counter === 3 ) {
           clearInterval( interval );
           // Indicar que terminó
           observer.complete();
-        }*/
+        }
         // Manejando el error
         // if ( counter === 2 ) {
           // clearInterval( interval );

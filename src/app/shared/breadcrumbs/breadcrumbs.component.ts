@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivationEnd } from '@angular/router';
 import { map, filter } from 'rxjs/operators';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -11,10 +12,13 @@ export class BreadcrumbsComponent implements OnInit {
   title: string;
 
   // Obtener los parámetros de las rutas
-  constructor( private router: Router ) {
+  constructor( private router: Router,
+               private _title: Title ) {
     this.getDataRoute()
     .subscribe( data => {
      this.title = data.title;
+     // Establecer el título de un documento HTML.
+     this._title.setTitle(this.title);
     });
   }
 
