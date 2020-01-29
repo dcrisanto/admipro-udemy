@@ -52,3 +52,4 @@ interface Settings {
   topicUrl: string;
   topic: string;
 }
+
