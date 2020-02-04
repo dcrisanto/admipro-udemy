@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { UsuarioService } from '../services/usuario/usuario.service';
 import { User } from '../models/user.model';
+import swal from 'sweetalert';
 
 // Función para que al recargar la página el loading no se quede cargando
 declare function init_plugins();
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
               public router: Router,
-              public usuarioService: UsuarioService
+              public usuarioService: UsuarioService,
               ) { }
 
   ngOnInit() {
@@ -35,6 +36,8 @@ export class LoginComponent implements OnInit {
     this.usuarioService.login(user, form.value.remember)
       .subscribe( resp => {
         console.log(resp);
+        swal('Login exitoso', user.email, 'success');
+        this.router.navigate(['/dashboard']);
       });
   }
 
