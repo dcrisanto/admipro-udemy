@@ -6,6 +6,7 @@ declare function init_plugins();
 import swal from 'sweetalert';
 import { UsuarioService } from '../services/service.index';
 import { User } from '../models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +18,8 @@ export class RegisterComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-    public usuarioService: UsuarioService
+    public usuarioService: UsuarioService,
+    public router: Router
     ) { }
   areEqual(campo1: string, campo2: string) {
     // Retorno una función que retorna un FormGroup
@@ -77,8 +79,10 @@ export class RegisterComponent implements OnInit {
       // Me subscribo para que se pueda disparar y el resp es la respuesta del servicio
       // crear usuarios.
       this.usuarioService.createUser(user)
-      .subscribe( resp => {
-          console.log(resp);
+        .subscribe( resp => {
+        console.log(resp);
+          //swal('Registro culminado', 'Usuario creado correctamente ' + resp.user.email, 'success');
+          this.router.navigate(['/login']);
       });
   }
 
