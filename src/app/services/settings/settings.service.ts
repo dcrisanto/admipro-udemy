@@ -11,7 +11,7 @@ export class SettingsService {
     topic: 'default'
   };
 
-  constructor( @Inject(DOCUMENT) private _document ) { 
+  constructor( @Inject(DOCUMENT) private _document ) {
     // Cuando el servicio sea inyectado se dispare la función loadSettings, por ello se llama en el
     // constructor del servicio
     this.loadSettings();

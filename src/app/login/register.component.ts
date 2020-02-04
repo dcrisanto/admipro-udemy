@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 // Función para que al recargar la página el loading no se quede cargando
 declare function init_plugins();
+// importar swal para utilizar sus pop-up
+import swal from 'sweetalert';
+import { UsuarioService } from '../services/service.index';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -12,12 +16,14 @@ export class RegisterComponent implements OnInit {
   // Creo un objeto llamado form de tipo FormGroup
   form: FormGroup;
 
-  constructor() { }
-  areEqual(campo1: string, campo2: string){
+  constructor(
+    public usuarioService: UsuarioService
+    ) { }
+  areEqual(campo1: string, campo2: string) {
     // Retorno una función que retorna un FormGroup
       return (group: FormGroup) => {
-        let pass1 = group.controls[campo1].value;
-        let pass2 = group.controls[campo2].value;
+        const pass1 = group.controls[campo1].value;
+        const pass2 = group.controls[campo2].value;
         // Retorno null porque la regla de validación pasa al ser los pass iguales
         if (pass1 === pass2) {
           return null;
@@ -52,18 +58,28 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  registerUser(){
+  registerUser() {
     if (this.form.invalid) {
+      swal('Importante', 'No puede registrarse, datos incorrectos', 'warning');
       return;
     }
     // Si las condiciones no están seleccionadas
     if (!this.form.value.condition) {
-      console.log('Debe seleccionar las condiciones');
+      swal('Importante', 'Debe aceptar las condiciones', 'warning');
       return;
     }
-    console.log('Formulario válido', this.form.valid);
-    console.log(this.form.value);
-    console.log(this.form);
+    // Se crea el usuario del modelo ya que lo requiere el servicio
+    const user = new User(
+      this.form.value.name,
+      this.form.value.email,
+      this.form.value.password
+      );
+      // Me subscribo para que se pueda disparar y el resp es la respuesta del servicio
+      // crear usuarios.
+      this.usuarioService.createUser(user)
+      .subscribe( resp => {
+          console.log(resp);
+      });
   }
 
 }
