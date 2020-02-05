@@ -34,11 +34,7 @@ export class LoginComponent implements OnInit {
     // Creo una variable de tipo usuario
     const user = new User(null, form.value.email, form.value.password);
     this.usuarioService.login(user, form.value.remember)
-      .subscribe( resp => {
-        console.log(resp);
-        swal('Login exitoso', user.email, 'success');
-        this.router.navigate(['/dashboard']);
-      });
+      .subscribe( loginExitoso => this.router.navigate(['/dashboard']));
   }
 
 }

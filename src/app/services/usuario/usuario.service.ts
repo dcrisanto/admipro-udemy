@@ -19,7 +19,18 @@ export class UsuarioService {
 
    login(user: User, remember: boolean) {
       const url = URL_SERVICES + '/login';
-      return this.http.post(url, user);
+      return this.http.post(url, user)
+      .pipe(
+        map( (resp:any) => {
+          console.log(resp);
+          swal('Login exitoso', resp.user.name + ':' + ' ' + user.email, 'success');
+          localStorage.setItem('id', resp.id);
+          localStorage.setItem('token', resp.token);
+          // Usuario como es un objeto lo guardo como string porq sólo eso acepta el Storage
+          localStorage.setItem('user', JSON.stringify(resp.user));
+          // Retorno un true ya no se va a devolver nada en el componente login
+          return true;
+        }));
    }
 
    // Creando un método para llamar al servicio crearUsuarios
