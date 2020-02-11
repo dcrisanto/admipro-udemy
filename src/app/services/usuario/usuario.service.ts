@@ -18,11 +18,16 @@ export class UsuarioService {
    }
 
    login(user: User, remember: boolean) {
-      const url = URL_SERVICES + '/login';
-      return this.http.post(url, user)
+     console.log(remember);
+     if (remember) {
+      localStorage.setItem('email', user.email);
+    } else {
+      localStorage.removeItem('email');
+    }
+     const url = URL_SERVICES + '/login';
+     return this.http.post(url, user)
       .pipe(
-        map( (resp:any) => {
-          console.log(resp);
+        map( (resp: any) => {
           swal('Login exitoso', resp.user.name + ':' + ' ' + user.email, 'success');
           localStorage.setItem('id', resp.id);
           localStorage.setItem('token', resp.token);

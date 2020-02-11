@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { UsuarioService } from '../services/usuario/usuario.service';
 import { User } from '../models/user.model';
-import swal from 'sweetalert';
 
 // Función para que al recargar la página el loading no se quede cargando
 declare function init_plugins();
@@ -15,6 +14,7 @@ declare function init_plugins();
 })
 export class LoginComponent implements OnInit {
   // Asignamos el valor por defecto false a la variable remember
+  email: string;
   remember: boolean = false;
 
   constructor(
@@ -24,6 +24,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
      init_plugins();
+     this.email = localStorage.getItem('email') || '';
+     if (this.email.length > 1) {
+      this.remember = true;
+     }
   }
 
   login( form: NgForm ) {
@@ -35,6 +39,7 @@ export class LoginComponent implements OnInit {
     const user = new User(null, form.value.email, form.value.password);
     this.usuarioService.login(user, form.value.remember)
       .subscribe( loginExitoso => this.router.navigate(['/dashboard']));
+    console.log(form.value.remember);
   }
 
 }
