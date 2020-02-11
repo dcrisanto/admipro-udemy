@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { UsuarioService } from '../services/usuario/usuario.service';
 import { User } from '../models/user.model';
 import { element } from 'protractor';
+import { debug } from 'util';
 
 // Función para que al recargar la página el loading no se quede cargando
 declare function init_plugins();
@@ -53,14 +54,14 @@ export class LoginComponent implements OnInit {
      attachSignin(element) {
       this.auth2.attachClickHandler (element, {}, (googleUser) => {
         const profile = googleUser.getBasicProfile();
-        //const token = googleUser.Zi.id_token;
+        // const token = googleUser.Zi.id_token;
         const token = googleUser.getAuthResponse().id_token;
-        console.log(profile);
-        console.log(googleUser);
-        console.log(token);
+        this.usuarioService.loginGoogle(token)
+        // Realizo una re dirección manual debido que cuando carga sale deforme el dashboard
+          .subscribe(() => window.location.href = '#/dashboard' );
       });
      }
-  
+
 
   login( form: NgForm ) {
     if ( form.invalid ) {

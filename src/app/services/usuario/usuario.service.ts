@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../models/user.model';
 import { HttpClient } from '@angular/common/http';
-import { URL_SERVICES } from '../../config/config';
+import { URL_SERVICES, URL_LOGIN_GOOGLE } from '../../config/config';
 import swal from 'sweetalert';
 import { map } from 'rxjs/operators';
+import { debug } from 'util';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
+
+  user: User;
+  token: string;
 
   constructor(
     // Realizar peticiones http lo inyectamos
@@ -17,6 +21,33 @@ export class UsuarioService {
     console.log('Servicio de usuario listo');
    }
 
+   // Save Local Storage
+   saveStorage(id: string, token: string, user: User) {
+    localStorage.setItem('id', id);
+    localStorage.setItem('token', token);
+    // Usuario como es un objeto lo guardo como string porq sólo eso acepta el Storages
+    localStorage.setItem('user', JSON.stringify(user));
+
+    // Setear los valores
+    this.user = user;
+    this.token = token;
+
+   }
+
+   // Logeo Google
+     loginGoogle(token: string) {
+      const url = URL_LOGIN_GOOGLE;
+      // Coloco un return para darme cuenta cuando resuelve la información.
+      // Envío el token como un objeto
+      return this.http.post(url, { token })
+        .pipe(
+          map((resp: any) => {
+            this.saveStorage(resp.id, resp.token, resp.user);
+            return true;
+          }));
+     }
+
+  // Logeo Normal
    login(user: User, remember: boolean) {
      console.log(remember);
      if (remember) {
@@ -29,10 +60,7 @@ export class UsuarioService {
       .pipe(
         map( (resp: any) => {
           swal('Login exitoso', resp.user.name + ':' + ' ' + user.email, 'success');
-          localStorage.setItem('id', resp.id);
-          localStorage.setItem('token', resp.token);
-          // Usuario como es un objeto lo guardo como string porq sólo eso acepta el Storage
-          localStorage.setItem('user', JSON.stringify(resp.user));
+          this.saveStorage(resp.id, resp.token, resp.user);
           // Retorno un true ya no se va a devolver nada en el componente login
           return true;
         }));
