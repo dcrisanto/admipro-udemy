@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { URL_SERVICES, URL_LOGIN_GOOGLE } from '../../config/config';
 import swal from 'sweetalert';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +16,21 @@ export class UsuarioService {
 
   constructor(
     // Realizar peticiones http lo inyectamos
-    public http: HttpClient
+    public http: HttpClient,
+    public router: Router
   ) {
     console.log('Servicio de usuario listo');
      // Llamar cuando se inicialice
     this.loadStorage();
+   }
+
+   logout() {
+      this.token = '';
+      this.user = null;
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      this.router.navigate(['/login']);
+      console.log('Seteando los valores al salir');
    }
 
    isLogged() {
