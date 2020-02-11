@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { URL_SERVICES, URL_LOGIN_GOOGLE } from '../../config/config';
 import swal from 'sweetalert';
 import { map } from 'rxjs/operators';
-import { debug } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +18,22 @@ export class UsuarioService {
     public http: HttpClient
   ) {
     console.log('Servicio de usuario listo');
+     // Llamar cuando se inicialice
+    this.loadStorage();
+   }
+
+   isLogged() {
+    return ( this.token.length > 5 ) ? true : false;
+   }
+
+   loadStorage() {
+     if (localStorage.getItem('token')) {
+      this.token = localStorage.getItem('token');
+      this.user = JSON.parse(localStorage.getItem('user'));
+     } else {
+       this.token = '';
+       this.user = null;
+     }
    }
 
    // Save Local Storage

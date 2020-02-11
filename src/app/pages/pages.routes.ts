@@ -6,12 +6,15 @@ import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PagesComponent } from './pages.component';
 import { AccoutSettingsComponent } from './accout-settings/accout-settings.component';
+import { LoginGuardGuard } from '../services/service.index';
 
 
 const pagesRoutes: Routes = [
     {
         path: '',
         component: PagesComponent,
+        // Requiero que contenga la propiedad de las rutas CanActive
+        canActivate: [LoginGuardGuard],
         children: [
             { path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard' } },
             { path: 'progress', component: ProgressComponent, data: { title: 'Barra de Progreso' } },
