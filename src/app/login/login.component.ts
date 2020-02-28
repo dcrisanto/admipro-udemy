@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { UsuarioService } from '../services/usuario/usuario.service';
 import { User } from '../models/user.model';
-import { element } from 'protractor';
-import { debug } from 'util';
 
 // Función para que al recargar la página el loading no se quede cargando
 declare function init_plugins();
@@ -53,7 +51,7 @@ export class LoginComponent implements OnInit {
     // La función recibirá un elemento html. Del callback recibo de la función el googleUser
      attachSignin(element) {
       this.auth2.attachClickHandler (element, {}, (googleUser) => {
-        const profile = googleUser.getBasicProfile();
+        // const profile = googleUser.getBasicProfile();
         // const token = googleUser.Zi.id_token;
         const token = googleUser.getAuthResponse().id_token;
         this.usuarioService.loginGoogle(token)
@@ -71,8 +69,7 @@ export class LoginComponent implements OnInit {
     // Creo una variable de tipo usuario
     const user = new User(null, form.value.email, form.value.password);
     this.usuarioService.login(user, form.value.remember)
-      .subscribe( loginExitoso => this.router.navigate(['/dashboard']));
-    console.log(form.value.remember);
+      .subscribe( () => this.router.navigate(['/dashboard']));
   }
 
 }

@@ -75,7 +75,6 @@ export class UsuarioService {
 
   // Logeo Normal
    login(user: User, remember: boolean) {
-     console.log(remember);
      if (remember) {
       localStorage.setItem('email', user.email);
     } else {
@@ -100,8 +99,8 @@ export class UsuarioService {
        .pipe(
      // Utilizo el operador map para recibir la respuesta y transformarla
        map( (resp: any) => {
-        swal('Usuario creado', user.email, 'success');
-        return resp.user;
+         swal('Usuario creado', user.email, 'success');
+         return resp.user;
        }));
    }
 }

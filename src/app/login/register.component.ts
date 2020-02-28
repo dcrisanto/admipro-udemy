@@ -78,11 +78,10 @@ export class RegisterComponent implements OnInit {
       );
       // Me subscribo para que se pueda disparar y el resp es la respuesta del servicio
       // crear usuarios.
-      this.usuarioService.createUser(user)
+    this.usuarioService.createUser(user)
         .subscribe( resp => {
-        console.log(resp);
-          //swal('Registro culminado', 'Usuario creado correctamente ' + resp.user.email, 'success');
-          this.router.navigate(['/login']);
+          // swal('Registro culminado', 'Usuario creado correctamente ' + resp.user.email, 'success');
+        this.router.navigate(['/login']);
       });
   }
 

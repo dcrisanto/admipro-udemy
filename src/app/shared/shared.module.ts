@@ -5,6 +5,7 @@ import { HeaderComponent } from './header/header.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { CommonModule } from '@angular/common';
        RouterModule,
        // Se debe importar para inconveniente que no se puede vincular ngFor debido a que no es una 
        // propiedad conocida de li
-       CommonModule
+       CommonModule,
+       PipesModule
     ],
     declarations: [
         BreadcrumbsComponent,
