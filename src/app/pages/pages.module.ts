@@ -18,6 +18,7 @@ import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 // Pipes Module
 import { PipesModule } from '../pipes/pipes.module';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import { PipesModule } from '../pipes/pipes.module';
         GraficoDonaComponent,
         AccoutSettingsComponent,
         PromisesComponent,
-        RxjsComponent
+        RxjsComponent,
+        ProfileComponent
     ],
     // Las exportamos para que puedan ser utilizadas por otros módulos
     exports: [

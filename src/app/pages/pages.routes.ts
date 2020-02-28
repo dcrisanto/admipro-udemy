@@ -7,6 +7,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { PagesComponent } from './pages.component';
 import { AccoutSettingsComponent } from './accout-settings/accout-settings.component';
 import { LoginGuardGuard } from '../services/service.index';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const pagesRoutes: Routes = [
@@ -22,6 +23,7 @@ const pagesRoutes: Routes = [
             { path: 'promises', component: PromisesComponent, data: { title: 'Promesas' } },
             { path: 'rxjs', component: RxjsComponent, data: { title: 'Rxjs' } },
             { path: 'accout-settings', component: AccoutSettingsComponent, data: { title: 'Ajuste de tema' } },
+            { path: 'profile', component: ProfileComponent, data: { title: 'Perfil de usuario'}},
             // Cualquier caracter vacío va a direccionar al dashborad
             { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
         ]
