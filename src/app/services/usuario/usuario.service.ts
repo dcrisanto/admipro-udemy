@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../models/user.model';
 import { HttpClient } from '@angular/common/http';
-import { URL_SERVICES, URL_LOGIN_GOOGLE } from '../../config/config';
+import { URL_SERVICES, URL_LOGIN_GOOGLE, URL_UPDATE_USER } from '../../config/config';
 import swal from 'sweetalert';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -101,6 +101,20 @@ export class UsuarioService {
        map( (resp: any) => {
          swal('Usuario creado', user.email, 'success');
          return resp.user;
+       }));
+   }
+
+   // Actualizar usuario
+   upDateUser(user: User) {
+     let url = URL_UPDATE_USER + user._id;
+     url += '?token=' + this.token;
+     console.log(url);
+     return this.http.put(url, user)
+     .pipe(
+       map((resp: any) => {
+         swal('Usuario actualizado', user.email, 'success');
+         console.log(resp);
+         return resp;
        }));
    }
 }
