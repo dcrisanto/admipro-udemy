@@ -114,7 +114,9 @@ export class UsuarioService {
        map((resp: any) => {
          swal('Usuario actualizado', user.email, 'success');
          console.log(resp);
-         return resp;
+         const userDB: User = resp.updatedUser;
+         this.saveStorage(userDB._id, this.token, userDB);
+         return true;
        }));
    }
 }
