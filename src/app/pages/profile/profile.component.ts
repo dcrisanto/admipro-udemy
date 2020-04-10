@@ -18,8 +18,11 @@ export class ProfileComponent implements OnInit {
   }
 
   save(user: User) {
+    // Actualizando los valores en el servicio
     this.user.name = user.name;
-    this.user.email = user.email;
+    if(!this.user.google){
+      this.user.email = user.email;
+    }
     console.log(user);
     this.userService.upDateUser(this.user)
     .subscribe(resp => {
