@@ -5,6 +5,7 @@ import { URL_SERVICES, URL_LOGIN_GOOGLE, URL_UPDATE_USER } from '../../config/co
 import swal from 'sweetalert';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { UploadFileService } from '../uploadFile/upload-file.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class UsuarioService {
   constructor(
     // Realizar peticiones http lo inyectamos
     public http: HttpClient,
-    public router: Router
+    public router: Router,
+    public uploadFileService: UploadFileService
   ) {
     console.log('Servicio de usuario listo');
      // Llamar cuando se inicialice
@@ -118,5 +120,18 @@ export class UsuarioService {
          this.saveStorage(userDB._id, this.token, userDB);
          return true;
        }));
+   }
+
+   changeImage(file: File, id: string) {
+    this.uploadFileService.uploadFile(file, 'users', id)
+      .then( (resp: any) => { // Debido a que devuelve una promesa
+        this.user.img = resp.updatedUser.img;
+        swal('Foto actualizada', this.user.name, 'success');
+        this.saveStorage(id, this.token, this.user);
+        console.log(resp);
+      })
+      .catch(resp => {
+        console.log(resp);
+      });
    }
 }

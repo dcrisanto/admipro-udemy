@@ -9,6 +9,8 @@ import { ChartsModule } from 'ng2-charts';
 
 // Modulos
 import { SharedModule } from '../shared/shared.module';
+
+
 import { PAGES_ROUTES } from './pages.routes';
 import { FormsModule } from '@angular/forms';
 import { IncreaseComponent } from '../components/increase/increase.component';

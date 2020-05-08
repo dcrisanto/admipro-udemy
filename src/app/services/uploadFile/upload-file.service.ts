@@ -21,9 +21,9 @@ export class UploadFileService {
     xhr.onreadystatechange = function() {
       // Recibiendo información cada vez que el estado cambie
       if (xhr.readyState === 4) { // Estado cuando termina el proceso
-          if (xhr.status === 200) {
+          if (xhr.status === 200) { // Estado ok
             console.log('Imagen subida');
-            resolve(xhr.response);
+            resolve(JSON.parse(xhr.response));
           } else {
             console.log('Error al subir imagen');
             reject(xhr.response);
@@ -31,7 +31,7 @@ export class UploadFileService {
       }
     };
     // Url para hacer a la petición
-    const  url = URL_UPLOAD_IMAGE + type + '/' + id;
+    let  url = URL_UPLOAD_IMAGE + type + '/' + id;
 
     xhr.open('PUT', url, true); // Para indicar que sea asíncrono: true
     xhr.send(formData);

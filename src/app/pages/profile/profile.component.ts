@@ -9,6 +9,7 @@ import { User } from '../../models/user.model';
 })
 export class ProfileComponent implements OnInit {
   user: User;
+  uploadImage: File;
 
   constructor(public userService: UsuarioService) {
     this.user = this.userService.user;
@@ -28,5 +29,18 @@ export class ProfileComponent implements OnInit {
     .subscribe(resp => {
       console.log(resp);
     });
+  }
+
+  imageSelection(file: File) {
+    if (!file) { // Si no existe el archivo que no haga nada
+      this.uploadImage = null;
+      return;
+    }  
+    this.uploadImage = file;
+    console.log(file);
+  }
+
+  changeImage() {
+    this.userService.changeImage(this.uploadImage, this.user._id);
   }
 }
