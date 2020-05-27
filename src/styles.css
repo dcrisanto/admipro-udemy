@@ -6,3 +6,15 @@
 #themecolors a {
     cursor: pointer;
 }
+
+.pointer {
+    cursor: pointer;
+}
+
+.w150 {
+    width: 150px;
+}
+
+.align {
+    text-align: center;
+}

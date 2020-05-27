@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../../services/service.index';
 import { User } from '../../models/user.model';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-profile',
@@ -10,12 +11,14 @@ import { User } from '../../models/user.model';
 export class ProfileComponent implements OnInit {
   user: User;
   uploadImage: File;
+  temporaryImage: string;
 
   constructor(public userService: UsuarioService) {
     this.user = this.userService.user;
   }
 
   ngOnInit() {
+
   }
 
   save(user: User) {
@@ -36,8 +39,19 @@ export class ProfileComponent implements OnInit {
       this.uploadImage = null;
       return;
     }  
+    if ( file.type.indexOf('image') < 0 ) {
+      swal('Sólo imágenes', 'El archivo seleccionado no es una imagen', 'error');
+      this.uploadImage = null;
+      return;
+    }
     this.uploadImage = file;
-    console.log(file);
+
+    let reader = new FileReader();
+    let urlTemporaryImage = reader.readAsDataURL(file);
+    
+    reader.onloadend = () => this.temporaryImage = reader.result as string; // Nos brinda la imagen en base 64
+    
+
   }
 
   changeImage() {

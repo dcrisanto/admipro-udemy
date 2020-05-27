@@ -9,6 +9,7 @@ import { ChartsModule } from 'ng2-charts';
 
 // Modulos
 import { SharedModule } from '../shared/shared.module';
+import { CommonModule } from '@angular/common';
 
 
 import { PAGES_ROUTES } from './pages.routes';
@@ -21,6 +22,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 // Pipes Module
 import { PipesModule } from '../pipes/pipes.module';
 import { ProfileComponent } from './profile/profile.component';
+
 
 @NgModule({
     declarations: [
@@ -47,7 +49,8 @@ import { ProfileComponent } from './profile/profile.component';
         PAGES_ROUTES,
         FormsModule,
         ChartsModule,
-        PipesModule
+        PipesModule,
+        CommonModule // Para el uso de las directivas
     ]
 })
 export class PagesModule { }
