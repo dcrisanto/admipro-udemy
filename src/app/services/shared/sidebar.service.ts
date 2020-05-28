@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,15 @@ export class SidebarService {
         { title: 'Gráficas', url: '/graficas1' },
         { title: 'Promises', url: '/promises' },
         { title: 'Rxjs', url: '/rxjs' }
+      ]
+    },
+    {
+      title: 'Mantenimiento',
+      icon: 'mdi mdi-folder-lock-open',
+      submenu: [
+        { title: 'Users', url: '/users'},
+        { title: 'Hospitals', url: '/hospitals'},
+        { title: 'Medics', url: '/medic'}
       ]
     }
   ];
