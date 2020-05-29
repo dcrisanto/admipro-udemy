@@ -41,8 +41,8 @@ export class RegisterComponent implements OnInit {
     init_plugins();
 // FormControl('valor por defecto', Validators.tipoValidation  )
     this.form = new FormGroup({
-      name: new FormControl(null, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
-      email: new FormControl(null, [Validators.required, Validators.email, Validators.minLength(8), Validators.maxLength(20)]),
+      name: new FormControl(null, [Validators.required, Validators.minLength(2), Validators.maxLength(40)]),
+      email: new FormControl(null, [Validators.required, Validators.email, Validators.minLength(6), Validators.maxLength(250)]),
       password: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(20)]),
       confirmPassword: new FormControl(null, [Validators.required, Validators.minLength(8)]),
       condition: new FormControl(false),

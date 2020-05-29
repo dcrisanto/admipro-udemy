@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../models/user.model';
 import { HttpClient } from '@angular/common/http';
-import { URL_SERVICES, URL_LOGIN_GOOGLE, URL_UPDATE_USER, URL_LOAD_USERS } from '../../config/config';
+import { URL_SERVICES, URL_LOGIN_GOOGLE, URL_UPDATE_USER, URL_LOAD_USERS, URL_SEARCH_USERS } from '../../config/config';
 import swal from 'sweetalert';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -140,4 +140,11 @@ export class UsuarioService {
     // Para notificar a usersComponent cuando termine
     return this.http.get(url);
    }
+
+   searchUsers ( term: string ) {
+    const url = URL_SEARCH_USERS + term;
+    return this.http.get(url)
+      .pipe(
+        map( ( resp: any ) => resp.users)
+      )}
 }

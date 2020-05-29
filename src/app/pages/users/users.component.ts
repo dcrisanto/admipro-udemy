@@ -12,6 +12,7 @@ export class UsersComponent implements OnInit {
   users: User[] = [];
   since: number = 0;
   totalRecords: number = 0;
+  loading: boolean = true;
   
 
   constructor(public userService: UsuarioService) { }
@@ -21,11 +22,13 @@ export class UsersComponent implements OnInit {
   }
 
   loadUsers() {
+    this.loading = true;
+
     this.userService.loadUsers(this.since)
       .subscribe((resp: any) => {
-        console.log(resp);
         this.users = resp.users;
         this.totalRecords = resp.total;
+        this.loading = false;
       });
   }
 
@@ -43,6 +46,22 @@ export class UsersComponent implements OnInit {
     this.since += valor;
     this.loadUsers();
     console.log(this.since);
+  }
+
+  searchUser( term: string ) {
+      if ( term.length <= 0 ) {
+        this.loadUsers();
+        return;
+      }  
+
+      this.loading = true;
+
+      this.userService.searchUsers(term)
+        .subscribe((users: User[]) => {
+          this.users = users;
+          this.loading = false;
+          console.log(this.users);
+        });
   }
 
 

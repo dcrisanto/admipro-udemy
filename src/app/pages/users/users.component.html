@@ -3,14 +3,15 @@
         <div class="card">
             <div class="card-body">
                 <!--Coloco una referencia al campo para obtener lo que esta escribiendo el usuario -->
-                <input #input type="text" class="form-control" placeholder="Buscar usuario ...">
+                <!--Cuando se presione o suelte la tecla se dispare la función searchUser enviando la referencial local el valor-->
+                <input #input (keyup)="searchUser(input.value)" type="text" class="form-control" placeholder="Buscar usuario ...">
 
             </div>
         </div>
     </div>
 </div>
 
-<div class="row animated fadeIn">
+<div class="row animated fadeIn" *ngIf="loading">
     <div class="col-sm-12">
         <div class="alert alert-warning text-center">
             <strong>Cargando</strong>
@@ -23,7 +24,7 @@
 
 </div>
 
-<div class="row animated fadeIn">
+<div class="row animated fadeIn" *ngIf="!loading">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
@@ -41,14 +42,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of users">
-                            <td></td>
+                        <tr *ngFor="let user of users" class="align">
+                            <td class="w70">
+                                <img [src]="user.img | image" class="img-50 img-circle">
+                            </td>
                             <td>{{user.email}}</td>
                             <td>{{user.name}}</td>
                             <td>{{user.rol}}</td>
                             <td>
-                                <label class="label label-danger">Google</label>
-                                <label class="label label-primary">Normal</label>
+                                <label *ngIf="user.google">Google</label>
+                                <label *ngIf="!user.google">Email</label>
                             </td>
                             <td>
                                 <button class="btn btn-primary">
@@ -64,8 +67,8 @@
                     </tbody>
                 </table>
                 <!--Paginacion de 5 en 5-->
-                <button (click)="changeSince(-5)" class="btn btn-secondary">Anteriores</button>
-                <button (click)="changeSince(5)" class="btn btn-secondary">Siguientes</button>
+                <button (click)="changeSince(-5)" class="btn btn-secondary">Anterior</button>
+                <button (click)="changeSince(5)" class="btn btn-secondary">Siguiente</button>
             </div>
         </div>
     </div>
