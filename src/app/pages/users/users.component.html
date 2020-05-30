@@ -48,19 +48,26 @@
                             </td>
                             <td>{{user.email}}</td>
                             <td>{{user.name}}</td>
-                            <td>{{user.rol}}</td>
+                            <td>
+                                <select [(ngModel)]="user.rol" name="rol" class="form-control">
+                                  <option *ngFor="let opcionRol of roles" [value]="opcionRol.text">
+                                    {{opcionRol.text}}
+                                  </option>
+                                </select>
+
+                            </td>
                             <td>
                                 <label *ngIf="user.google">Google</label>
                                 <label *ngIf="!user.google">Email</label>
                             </td>
                             <td>
-                                <button class="btn color">
-                              <i class="fa fa-save"></i>
-                            </button>
+                                <button (click)="saveChanges(user)" class="btn color">
+                                  <i class="fa fa-save"></i>
+                                </button>
 
                                 <button (click)="deleteUser(user)" class="btn btn-danger">
-                              <i class="fa fa-trash-o"></i>
-                            </button>
+                                  <i class="fa fa-trash-o"></i>
+                                </button>
                             </td>
                         </tr>
 

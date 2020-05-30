@@ -110,14 +110,15 @@ export class UsuarioService {
    upDateUser(user: User) {
      let url = URL_UPDATE_USER + user._id;
      url += '?token=' + this.token;
-     console.log(url);
      return this.http.put(url, user)
      .pipe(
        map((resp: any) => {
-         swal('Usuario actualizado', user.email, 'success');
-         console.log(resp);
-         const userDB: User = resp.updatedUser;
-         this.saveStorage(userDB._id, this.token, userDB);
+
+        if ( user._id === this.user ) {
+          const userDB: User = resp.updatedUser;
+          this.saveStorage(userDB._id, this.token, userDB);
+        }
+         swal('Usuario actualizado', user.name, 'success');
          return true;
        }));
    }

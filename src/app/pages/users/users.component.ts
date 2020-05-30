@@ -17,7 +17,10 @@ export class UsersComponent implements OnInit {
   since: number = 0;
   totalRecords: number = 0;
   loading: boolean = true;
-  
+  roles = [
+    {id: 0, text: 'ADMIN_ROL'},
+    {id: 1, text: 'USER_ROL'}
+  ];
 
   constructor(public userService: UsuarioService) { }
 
@@ -33,6 +36,7 @@ export class UsersComponent implements OnInit {
         this.users = resp.users;
         this.totalRecords = resp.total;
         this.loading = false;
+        console.log(this.users);
       });
   }
 
@@ -92,6 +96,14 @@ export class UsersComponent implements OnInit {
       }
     });
 
+  }
+
+  saveChanges( user: User ) {
+      console.log(user);
+      this.userService.upDateUser(user)
+        .subscribe(resp => {
+          console.log(resp);
+        })
   }
 
 
