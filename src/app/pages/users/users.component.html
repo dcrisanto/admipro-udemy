@@ -38,11 +38,11 @@
                             <th>Nombre</th>
                             <th>Role</th>
                             <th>Auth</th>
-                            <th>Auth</th>
+                            <th>Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of users" class="align">
+                        <tr *ngFor="let user of users">
                             <td class="w70">
                                 <img [src]="user.img | image" class="img-50 img-circle">
                             </td>
@@ -54,11 +54,11 @@
                                 <label *ngIf="!user.google">Email</label>
                             </td>
                             <td>
-                                <button class="btn btn-primary">
+                                <button class="btn color">
                               <i class="fa fa-save"></i>
                             </button>
 
-                                <button class="btn btn-danger">
+                                <button (click)="deleteUser(user)" class="btn btn-danger">
                               <i class="fa fa-trash-o"></i>
                             </button>
                             </td>
@@ -67,8 +67,8 @@
                     </tbody>
                 </table>
                 <!--Paginacion de 5 en 5-->
-                <button (click)="changeSince(-5)" class="btn btn-secondary">Anterior</button>
-                <button (click)="changeSince(5)" class="btn btn-secondary">Siguiente</button>
+                <button (click)="changeSince(-5)" class="btn btn-primary">Anterior</button>
+                <button (click)="changeSince(5)" class="btn btn-danger">Siguiente</button>
             </div>
         </div>
     </div>

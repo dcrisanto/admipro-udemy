@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UsuarioService } from '../../services/service.index';
+import swal from 'sweetalert';
+
+// Para que ya no muestre errores en el swal
+declare var swal: any;
 
 @Component({
   selector: 'app-users',
@@ -45,7 +49,6 @@ export class UsersComponent implements OnInit {
     }
     this.since += valor;
     this.loadUsers();
-    console.log(this.since);
   }
 
   searchUser( term: string ) {
@@ -64,6 +67,32 @@ export class UsersComponent implements OnInit {
         });
   }
 
+  deleteUser( user: User ) {
+    console.log(user);
+    if ( user._id === this.userService.user._id ) {
+      swal('Acceso denegado', 'No se puede borrar a si mismo', 'error');
+      return;
+    }
+
+    swal({
+      title: '¿Estás seguro que deseas eliminar a ' + user.name + '?',
+      text: 'Los datos del usuario serán eliminados definitivamente',
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      console.log(willDelete);
+      if (willDelete) {
+        this.userService.deleteUser(user._id)
+       .subscribe((deleteUser: boolean) => {
+         console.log(deleteUser);
+         this.loadUsers();
+       });
+      }
+    });
+
+  }
 
 
 }

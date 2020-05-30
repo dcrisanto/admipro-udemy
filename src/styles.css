@@ -26,3 +26,20 @@
 .img-50 {
     width: 50px;
 }
+
+.color {
+    background: #0D97C6;
+}
+
+i {
+    color: #fff;
+}
+
+td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+th {
+    text-align: center;
+}

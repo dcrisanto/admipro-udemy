@@ -146,5 +146,19 @@ export class UsuarioService {
     return this.http.get(url)
       .pipe(
         map( ( resp: any ) => resp.users)
-      )}
+      )
+    }
+
+    deleteUser( id: string ) {
+      const url = URL_UPDATE_USER + id + '?token=' + this.token;
+      return this.http.delete(url)
+        .pipe(
+          map( resp => {
+            console.log(resp);
+            swal('Usuario eliminado correctamente!', {
+            icon: 'success',
+          });
+            return true;
+        }));
+    }
 }
