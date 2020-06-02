@@ -1,19 +1,22 @@
-<div class="black-background animated fadeIn" [ngClass]="hide">
+<div class="black-background animated fadeIn" [ngClass]="modalUploadService.hide">
     <div class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Modal title</h5>
-                    <button (click)="hide='hide'" type="button" class="close" aria-label="Close">
+                    <button (click)="closeModal()" type="button" class="close" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
                 </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
+                <div class="modal-body center">
+                    <img *ngIf="!temporaryImage" [src]="xxx | image" class="w150">
+                    <img *ngIf="temporaryImage" [src]="temporaryImage" class="w150">
+                    <!--change se dispara cada que cambie-->
+                    <input (change)="imageSelection($event.target.files[0])" type="file">
                 </div>
                 <div class="modal-footer">
-                    <button (click)="hide='hide'" type="button" class="btn btn-secondary">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button (click)="closeModal()" type="button" class="btn btn-secondary">Close</button>
+                    <button (click)="changeImage()" [disabled]="!temporaryImage" type="button" class="btn btn-primary">Upload Image</button>
                 </div>
             </div>
         </div>

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UsuarioService } from '../../services/service.index';
-import swal from 'sweetalert';
+import { ModalUploadService } from '../../components/modal-upload/modal-upload.service';
+
 
 // Para que ya no muestre errores en el swal
 declare var swal: any;
@@ -22,10 +23,19 @@ export class UsersComponent implements OnInit {
     {id: 1, text: 'USER_ROL'}
   ];
 
-  constructor(public userService: UsuarioService) { }
+  constructor(
+              public userService: UsuarioService,
+              public modalUploadService: ModalUploadService) { }
 
   ngOnInit() {
     this.loadUsers();
+    // Cargando la imagen cuando sea notificado
+    this.modalUploadService.notification
+      .subscribe( resp => {
+        console.log(resp);
+        this.loadUsers();
+      });
+
   }
 
   loadUsers() {
@@ -104,6 +114,10 @@ export class UsersComponent implements OnInit {
         .subscribe(resp => {
           console.log(resp);
         })
+  }
+
+  showModal(user: User) {
+    this.modalUploadService.showModal('users', user._id);
   }
 
 

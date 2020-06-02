@@ -31,7 +31,7 @@ export class UploadFileService {
       }
     };
     // Url para hacer a la petición
-    let  url = URL_UPLOAD_IMAGE + type + '/' + id;
+    const  url = URL_UPLOAD_IMAGE + type + '/' + id;
 
     xhr.open('PUT', url, true); // Para indicar que sea asíncrono: true
     xhr.send(formData);

@@ -114,7 +114,7 @@ export class UsuarioService {
      .pipe(
        map((resp: any) => {
 
-        if ( user._id === this.user ) {
+        if ( user._id === this.user._id ) {
           const userDB: User = resp.updatedUser;
           this.saveStorage(userDB._id, this.token, userDB);
         }
