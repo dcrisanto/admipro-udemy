@@ -13,7 +13,8 @@ export class ProfileComponent implements OnInit {
   uploadImage: File;
   temporaryImage: string;
 
-  constructor(public userService: UsuarioService) {
+  constructor(
+            public userService: UsuarioService) {
     this.user = this.userService.user;
   }
 
@@ -24,10 +25,9 @@ export class ProfileComponent implements OnInit {
   save(user: User) {
     // Actualizando los valores en el servicio
     this.user.name = user.name;
-    if(!this.user.google){
+    if(!this.user.google) {
       this.user.email = user.email;
     }
-    console.log(user);
     this.userService.upDateUser(this.user)
     .subscribe(resp => {
       console.log(resp);

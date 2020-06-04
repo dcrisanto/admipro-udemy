@@ -1,4 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
+import { UsuarioService } from '../../services/usuario/usuario.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class ModalUploadService {
   public hide: string = 'hide';
   // Para notificar a los demás componentes que se subió una imagen
   public notification = new EventEmitter<any>();
-  constructor() {
+  constructor(public userService: UsuarioService) {
     console.log('Modal service listo');
   }
 

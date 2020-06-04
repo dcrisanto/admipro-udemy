@@ -52,7 +52,7 @@ export class ModalUploadComponent implements OnInit {
       })
       .catch( error => {
         console.log('Error en la carga de imagen...');
-      })
+      });
   }
 
   closeModal() {

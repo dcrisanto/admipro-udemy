@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../models/user.model';
 import { HttpClient } from '@angular/common/http';
-import { URL_SERVICES, URL_LOGIN_GOOGLE, URL_UPDATE_USER, URL_LOAD_USERS, URL_SEARCH_USERS } from '../../config/config';
+import { URL_SERVICES, URL_LOGIN_GOOGLE, URL_SEARCH_USERS, URL_PATH_USER } from '../../config/config';
 import swal from 'sweetalert';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { UploadFileService } from '../uploadFile/upload-file.service';
+import { ModalUploadService } from '../../components/modal-upload/modal-upload.service';
 
 @Injectable({
   providedIn: 'root'
@@ -95,7 +96,7 @@ export class UsuarioService {
 
    // Creando un método para llamar al servicio crearUsuarios
    createUser(user: User) {
-     const url = URL_SERVICES + '/user';
+     const url = URL_PATH_USER;
      // Lamando a la petición. Lo retorno para devolver un observador para poderme subscribir
      return this.http.post(url, user)
        .pipe(
@@ -108,7 +109,7 @@ export class UsuarioService {
 
    // Actualizar usuario
    upDateUser(user: User) {
-     let url = URL_UPDATE_USER + user._id;
+     let url = URL_PATH_USER + '/' + user._id;
      url += '?token=' + this.token;
      return this.http.put(url, user)
      .pipe(
@@ -137,7 +138,7 @@ export class UsuarioService {
    }
 
    loadUsers( since: number = 0) {
-    const url = URL_LOAD_USERS + '?since=' + since;
+    const url = URL_PATH_USER + '?since=' + since;
     // Para notificar a usersComponent cuando termine
     return this.http.get(url);
    }
@@ -151,7 +152,7 @@ export class UsuarioService {
     }
 
     deleteUser( id: string ) {
-      const url = URL_UPDATE_USER + id + '?token=' + this.token;
+      const url = URL_PATH_USER + '/' + id + '?token=' + this.token;
       return this.http.delete(url)
         .pipe(
           map( resp => {

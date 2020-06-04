@@ -9,6 +9,7 @@ import { AccoutSettingsComponent } from './accout-settings/accout-settings.compo
 import { LoginGuardGuard } from '../services/service.index';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
+import { HospitalsComponent } from './hospitals/hospitals.component';
 
 
 const pagesRoutes: Routes = [
@@ -27,6 +28,7 @@ const pagesRoutes: Routes = [
             { path: 'profile', component: ProfileComponent, data: { title: 'Perfil de usuario'}},
             // Mantenimientos
             { path: 'users', component: UsersComponent, data: { title: 'Mantenimento de usuarios'}},
+            { path: 'hospitals', component: HospitalsComponent, data: { title: 'Mantenimiento de hospitales'}},
             // Cualquier caracter vacío va a direccionar al dashborad
             { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
         ]

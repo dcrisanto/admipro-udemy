@@ -69,7 +69,7 @@ export class UsersComponent implements OnInit {
       if ( term.length <= 0 ) {
         this.loadUsers();
         return;
-      }  
+      }
 
       this.loading = true;
 
@@ -113,7 +113,7 @@ export class UsersComponent implements OnInit {
       this.userService.upDateUser(user)
         .subscribe(resp => {
           console.log(resp);
-        })
+        });
   }
 
   showModal(user: User) {
