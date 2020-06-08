@@ -9,7 +9,6 @@ declare var swal: any;
 @Component({
   selector: 'app-hospitals',
   templateUrl: './hospitals.component.html',
-  styleUrls: ['./hospitals.component.css']
 })
 export class HospitalsComponent implements OnInit {
   loading: boolean = true;
@@ -46,11 +45,7 @@ export class HospitalsComponent implements OnInit {
         return;
       }
       this.hospitalService.createHospital(name)
-        .subscribe(resp => {
-          console.log(resp);
-          swal('Hospital creado', `El hospital creado es : ${name}`, 'success');
-          this.loadHospitals();
-        });
+        .subscribe(resp => this.loadHospitals()) ;
     });
   }
 

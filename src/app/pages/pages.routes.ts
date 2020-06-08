@@ -10,6 +10,8 @@ import { LoginGuardGuard } from '../services/service.index';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
 import { HospitalsComponent } from './hospitals/hospitals.component';
+import { MedicsComponent } from './medics/medics.component';
+import { MedicComponent } from './medics/medic.component';
 
 
 const pagesRoutes: Routes = [
@@ -29,6 +31,8 @@ const pagesRoutes: Routes = [
             // Mantenimientos
             { path: 'users', component: UsersComponent, data: { title: 'Mantenimento de usuarios'}},
             { path: 'hospitals', component: HospitalsComponent, data: { title: 'Mantenimiento de hospitales'}},
+            { path: 'medics', component: MedicsComponent, data: { title: 'Mantenimiento de médicos'}},
+            { path: 'medic/:id', component: MedicComponent, data: { title: 'Actualizar médico'}},
             // Cualquier caracter vacío va a direccionar al dashborad
             { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
         ]

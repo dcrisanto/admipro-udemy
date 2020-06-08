@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Hospital } from '../../models/hospital.model';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { URL_SEARCH_HOSPITALS, URL_PATH_HOSPITALS } from '../../config/config';
 import { map } from 'rxjs/operators';
 import swal from 'sweetalert';

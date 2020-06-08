@@ -1,0 +1,76 @@
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <!--Coloco una referencia al campo para obtener lo que esta escribiendo el usuario -->
+                <!--Cuando se presione o suelte la tecla se dispare la función searchUser enviando la referencial local el valor-->
+                <input #input (keyup)="searchMedic(input.value)" type="text" class="form-control" placeholder="Buscar medico ...">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="loading">
+    <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br>
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br>
+            <span>Espere por favor</span>
+        </div>
+    </div>
+
+</div>
+
+<div class="row animated fadeIn" *ngIf="!loading">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-right">
+                    <button [routerLink]="['/medic', 'new']" class="btn waves-effect waves-light btn-rounded btn-primary">
+                    <i class="fa fa-plus"></i> Crear Médico
+                  </button>
+                </div>
+
+                <h3 class="card-title">Médicos registrados (<small>{{totalRecords}}</small>) </h3>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Foto</th>
+                            <th>Médico</th>
+                            <th>Hospital</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let medic of medics">
+                            <td class="w70">
+                                <img (click)="updatedImage(medic)" [src]="medic.img | image: 'medics'" class="img-50 img-circle pointer">
+                            </td>
+                            <td>
+                                <input [(ngModel)]="medic.name" name="nameMedic" class="form-control" placeholder="Nombre del medico">
+                            </td>
+                            <td>{{medic.hospital.name}}</td>
+                            <td>
+                                <button [routerLink]="['/medic',medic._id]" class="btn color">
+                                <i class="fa fa-edit"></i>
+                              </button>
+
+                                <button (click)="deleteMedic(medic)" class="btn btn-danger">
+                                <i class="fa fa-trash-o"></i>
+                              </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!--Paginacion de 5 en 5-->
+                <button (click)="changeSince(-5)" class="btn btn-primary">Anterior</button>
+                <button (click)="changeSince(5)" class="btn btn-danger">Siguiente</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -24,6 +24,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
 import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
 import { HospitalsComponent } from './hospitals/hospitals.component';
+import { MedicsComponent } from './medics/medics.component';
+import { MedicComponent } from './medics/medic.component';
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import { HospitalsComponent } from './hospitals/hospitals.component';
         ProfileComponent,
         UsersComponent,
         ModalUploadComponent,
-        HospitalsComponent
+        HospitalsComponent,
+        MedicsComponent,
+        MedicComponent
     ],
     // Las exportamos para que puedan ser utilizadas por otros módulos
     exports: [
