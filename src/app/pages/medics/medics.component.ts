@@ -17,8 +17,7 @@ export class MedicsComponent implements OnInit {
   since: number = 0;
 
   constructor(
-              public medicService: MedicService,
-              public router: Router) { }
+              public medicService: MedicService) { }
 
   ngOnInit() {
     this.loadMedics();
