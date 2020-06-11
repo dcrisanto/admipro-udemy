@@ -12,7 +12,6 @@ export class ModalUploadService {
   // Para notificar a los demás componentes que se subió una imagen
   public notification = new EventEmitter<any>();
   constructor(public userService: UsuarioService) {
-    console.log('Modal service listo');
   }
 
   hideModal() {

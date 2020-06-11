@@ -3,7 +3,7 @@ import { Medic } from '../../models/medic.model';
 import { MedicService, HospitalService } from 'src/app/services/service.index';
 import { NgForm } from '@angular/forms';
 import { Hospital } from 'src/app/models/hospital.model';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 declare var swal: any;
 
@@ -19,15 +19,33 @@ export class MedicComponent implements OnInit {
 
   constructor(public medicService: MedicService,
               public hospitalService: HospitalService,
-              public router: Router) {
-                console.log(this.medic._id);
+              public router: Router,
+              public activatedRoute: ActivatedRoute) {
+                // Para leer el parámetro de la url
+                activatedRoute.params.subscribe(params => {
+                  const id = params['id'];
+                  if ( id !== 'new') {
+                    this.medic._id = id;
+                    this.updatedMedic(id);
+                  }
+                });
                }
 
   ngOnInit() {
     this.hospitalService.loadHospitals()
-    .subscribe((resp: any) => this.hospitals = resp.hospitals);
+    .subscribe((resp: any) => {
+      this.hospitals = resp.hospitals;
+    });
+  }
 
-    console.log(this.medic._id);
+  // Actualizar Médico
+  updatedMedic( id: string ) {
+    this.medicService.getMedic(id)
+      .subscribe( ( medic: Medic ) => {
+        this.medic = medic;
+        this.medic._idHospital = medic.hospital._id;
+        this.hospitalChange(this.medic._idHospital); // this.hospital = this.medic.hospital;
+      });
   }
 
   saveMedic(f: NgForm) {

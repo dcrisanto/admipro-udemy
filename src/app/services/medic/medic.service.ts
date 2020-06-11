@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UsuarioService } from '../usuario/usuario.service';
 import { URL_PATH_MEDICS, URL_SEARCH_MEDICS } from '../../config/config';
@@ -13,7 +13,7 @@ export class MedicService {
 
   constructor(
               public http: HttpClient,
-              public userService: UsuarioService
+              public userService: UsuarioService,
   ) { }
 
   // Crear Médico
@@ -32,6 +32,14 @@ export class MedicService {
   loadMedics( since: number = 0) {
     const url = URL_PATH_MEDICS + '?since=' + since;
     return this.http.get(url);
+  }
+
+  // Cargar médico por Id
+  getMedic(id: string) {
+    const url = URL_PATH_MEDICS + '/' + id;
+    return this.http.get(url)
+        .pipe(
+          map((resp: any) => resp.medic));
   }
 
   // Búsqueda de médicos

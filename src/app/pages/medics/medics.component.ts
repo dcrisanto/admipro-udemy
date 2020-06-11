@@ -17,7 +17,8 @@ export class MedicsComponent implements OnInit {
   since: number = 0;
 
   constructor(
-              public medicService: MedicService) { }
+              public medicService: MedicService,
+              public router: Router) { }
 
   ngOnInit() {
     this.loadMedics();
@@ -45,9 +46,9 @@ export class MedicsComponent implements OnInit {
     this.loading = true;
 
     this.medicService.loadMedics(this.since)
-      .subscribe((medics: any) => {
-        this.medics = medics.doctors;
-        this.totalRecords = medics.total;
+      .subscribe((resp: any) => {
+        this.medics = resp.doctors;
+        this.totalRecords = resp.total;
         this.loading = false;
       });
   }
@@ -66,11 +67,6 @@ export class MedicsComponent implements OnInit {
   this.since += valor;
   this.loadMedics();
 }
-
-  // Actualizar Imagen
-  updatedImage() {
-
-  }
 
 
     // Borrar Médico
