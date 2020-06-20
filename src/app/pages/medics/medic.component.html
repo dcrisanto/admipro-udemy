@@ -41,7 +41,7 @@
     <div class="col-md-3" *ngIf="medic._id">
         <div class="card card-body">
             <h4 class="box-title m-b-0">Fotografía de Médico</h4>
-            <img [src]="medic.img | image: 'doctors'" class="img-circle img-fluid">
+            <img (click)="updatedImage(medic)" [src]="medic.img | image: 'doctors'" class="img-circle img-fluid pointer">
         </div>
     </div>
 </div>

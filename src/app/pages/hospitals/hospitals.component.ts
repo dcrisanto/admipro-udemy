@@ -27,7 +27,7 @@ export class HospitalsComponent implements OnInit {
     this.loadHospitals();
      // Cargando la imagen cuando sea notificado
     this.modalUploadService.notification
-     .subscribe( () => this.loadHospitals() );
+     .subscribe( () => this.loadHospitals());
   }
 
   // Crear Hospital
