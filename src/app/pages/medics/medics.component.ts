@@ -79,7 +79,6 @@ deleteMedic( medic: Medic ) {
     dangerMode: true,
   })
   .then((willDelete) => {
-    console.log(willDelete);
     if (willDelete) {
       this.medicService.deleteMedic(medic._id)
      .subscribe((deleteMedic: boolean) => {

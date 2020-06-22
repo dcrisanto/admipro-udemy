@@ -15,7 +15,7 @@ declare var swal: any;
 })
 export class MedicComponent implements OnInit {
   hospitals: Hospital[] = [];
-  medic: Medic = new Medic('', '', '', '');
+  medic: Medic = new Medic('', '', '', '', '');
   hospital: Hospital = new Hospital('');
 
   constructor(public medicService: MedicService,
@@ -50,10 +50,10 @@ export class MedicComponent implements OnInit {
   // Actualizar Médico
   updatedMedic( id: string ) {
     this.medicService.getMedic(id)
-      .subscribe( ( medic: Medic ) => {
+      .subscribe( ( medic: any ) => {
         this.medic = medic;
-        this.medic._idHospital = medic.hospital._id;
-        this.hospitalChange(this.medic._idHospital); // this.hospital = this.medic.hospital;
+        this.medic.hospital = medic.hospital._id;
+        this.hospitalChange(this.medic.hospital);
       });
   }
 
@@ -62,13 +62,10 @@ export class MedicComponent implements OnInit {
       return;
     }
 
-    this.medicService.createMedic(f.value)
-        .subscribe((resp: Medic) => {
-          swal('Médico creado', `El médico creado es : ${resp.name}`, 'success');
-          this.medic._id = resp._id;
-          this.router.navigate(['/medic', resp._id]);
+    this.medicService.saveMedic(this.medic)
+        .subscribe((resp: any) => {
+          this.router.navigate(['/medics']);
         });
-
   }
 
   hospitalChange( id: string ) {

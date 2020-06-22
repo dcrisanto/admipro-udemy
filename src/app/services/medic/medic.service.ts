@@ -5,27 +5,44 @@ import { URL_PATH_MEDICS, URL_SEARCH_MEDICS } from '../../config/config';
 import { map } from 'rxjs/operators';
 import swal from 'sweetalert';
 import { Medic } from '../../models/medic.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MedicService {
+  _id: string = '';
 
   constructor(
               public http: HttpClient,
               public userService: UsuarioService,
-  ) { }
+              public activatedRoute: ActivatedRoute
+  ) {
+   }
 
-  // Crear Médico
-  createMedic(medic: Medic) {
-    const url = URL_PATH_MEDICS + '?token=' + this.userService.token;
-    return this.http.post(url, medic)
+  // Crear Médico y Actualizar Médico
+  saveMedic(medic: Medic) {
+    let url = URL_PATH_MEDICS;
+    // Creando
+    if (!medic._id) {
+      url += '?token=' + this.userService.token;
+      return this.http.post(url, medic)
       .pipe(
         map((resp: any) => {
-            console.log(resp);
             swal('Médico creado correctamente', medic.name, 'success');
             return resp.doctor;
         }));
+    // Actualizando
+    } else {
+      url += '/' + medic._id;
+      url += '?token=' + this.userService.token;
+      return this.http.put(url, medic)
+    .pipe(
+      map( (resp: any) => {
+        swal('Médico actualizado', medic.name, 'success');
+        return true;
+      }));
+    }
 }
 
   // Cargar todos los médicos
@@ -48,7 +65,7 @@ export class MedicService {
     return this.http.get(url)
       .pipe(
         map( ( resp: any ) => resp.doctors )
-      )
+      );
   }
 
   // Delete Médico
@@ -65,4 +82,5 @@ export class MedicService {
           return true;
         }));
   }
+
 }

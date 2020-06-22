@@ -1,8 +1,9 @@
 <div class="row animated fadeIn">
     <div class="col-md-6">
         <div class="card card-body">
-            <h3 class="box-title m-b-0">Médico</h3>
-            <p class="text-muted m-b-30 font-13"> Actualizando médico </p>
+            <h3 class="box-title m-b-0">Médico: {{medic.name}}</h3>
+            <p *ngIf="!medic._id" class="text-muted m-b-30 font-13"> Creando médico </p>
+            <p *ngIf="medic._id" class="text-muted m-b-30 font-13"> Actualizando médico </p>
             <div class="row">
                 <div class="col-sm-12 col-xs-12">
                     <form #f="ngForm" ngNativeValidate (ngSubmit)="saveMedic(f)">
@@ -12,7 +13,7 @@
                         </div>
                         <div class="form-group">
                             <label>Hospital</label>
-                            <select (change)="hospitalChange($event.target.value)" [(ngModel)]="medic._idHospital" name="hospital" class="form-control" required>
+                            <select (change)="hospitalChange($event.target.value)" [(ngModel)]="medic.hospital" name="hospital" class="form-control" required>
                               <option value="">Seleccione un hospital</option>
                               <option *ngFor="let hospital of hospitals" [value]="hospital._id">{{hospital.name}}</option>
                             </select>

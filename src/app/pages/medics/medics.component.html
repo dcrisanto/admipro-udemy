@@ -49,7 +49,7 @@
                     <tbody>
                         <tr *ngFor="let medic of medics">
                             <td class="w70">
-                                <img [src]="medic.img | image: 'medics'" class="img-50 img-circle pointer">
+                                <img [src]="medic.img | image: 'doctors'" class="img-50 img-circle pointer">
                             </td>
                             <td>
                                 <input [(ngModel)]="medic.name" name="nameMedic" class="form-control" placeholder="Nombre del medico">
