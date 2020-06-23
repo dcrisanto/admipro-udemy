@@ -12,6 +12,7 @@ import { UsersComponent } from './users/users.component';
 import { HospitalsComponent } from './hospitals/hospitals.component';
 import { MedicsComponent } from './medics/medics.component';
 import { MedicComponent } from './medics/medic.component';
+import { SearchComponent } from './search/search.component';
 
 
 const pagesRoutes: Routes = [
@@ -28,6 +29,7 @@ const pagesRoutes: Routes = [
             { path: 'rxjs', component: RxjsComponent, data: { title: 'Rxjs' } },
             { path: 'accout-settings', component: AccoutSettingsComponent, data: { title: 'Ajuste de tema' } },
             { path: 'profile', component: ProfileComponent, data: { title: 'Perfil de usuario'}},
+            { path: 'search/:term', component: SearchComponent, data: { title: 'Buscar'}},
             // Mantenimientos
             { path: 'users', component: UsersComponent, data: { title: 'Mantenimento de usuarios'}},
             { path: 'hospitals', component: HospitalsComponent, data: { title: 'Mantenimiento de hospitales'}},
