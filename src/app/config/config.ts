@@ -14,3 +14,5 @@ export const URL_SEARCH_HOSPITALS = URL_SERVICES + '/search/collection/hospitals
 // Medics
 export const URL_PATH_MEDICS = URL_SERVICES + '/doctor';
 export const URL_SEARCH_MEDICS = URL_SERVICES + '/search/collection/doctors/';
+// Búsqueda
+export const URL_SEARCH = URL_SERVICES + '/search/all/';

@@ -1,1 +1,82 @@
-<p>search works!</p>
+<div class="row">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Usuarios</h4>
+                <table class="table table-hover" *ngIf="users.length > 0">
+                    <tbody>
+                        <tr *ngFor="let user of users">
+                            <td>
+                                <img [src]="user.img | image" class="img-50 img-circle pointer">
+                            </td>
+                            <td>{{user.name}}</td>
+                            <td>
+                                <button [routerLink]="['/users']" class="btn btn-primary">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div *ngIf="users.length === 0" class="alert alert-info">
+                    No hay registros
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Hospitales</h4>
+                <table class="table table-hover" *ngIf="hospitals.length > 0">
+                    <tbody>
+                        <tr *ngFor="let hospital of hospitals">
+                            <td>
+                                <img [src]="hospital.img | image: 'hospitals'" class="img-50 img-circle pointer">
+                            </td>
+                            <td>{{hospital.name}}</td>
+                            <td>
+                                <button [routerLink]="['/hospitals']" class="btn btn-primary">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div *ngIf="hospitals.length === 0" class="alert alert-info">
+                    No hay registros
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Médicos</h4>
+                <table class="table table-hover" *ngIf="medics.length > 0">
+                    <tbody>
+                        <tr *ngFor="let medic of medics">
+                            <td>
+                                <img [src]="medic.img | image: 'doctors'" class="img-50 img-circle pointer">
+                            </td>
+                            <td>{{medic.name}}</td>
+                            <td>
+                                <button [routerLink]="['/medic', medic._id]" class="btn btn-primary">
+                                  <i class="fa fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div *ngIf="medics.length === 0" class="alert alert-info">
+                    No hay registros
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
