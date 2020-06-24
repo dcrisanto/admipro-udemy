@@ -15,6 +15,7 @@ export class UsuarioService {
 
   user: User;
   token: string;
+  menu: any[] = [];
 
   constructor(
     // Realizar peticiones http lo inyectamos
@@ -30,10 +31,12 @@ export class UsuarioService {
    logout() {
       this.token = '';
       this.user = null;
+      this.menu = [];
+
       localStorage.removeItem('token');
       localStorage.removeItem('user');
+      localStorage.removeItem('menu');
       this.router.navigate(['/login']);
-      console.log('Seteando los valores al salir');
    }
 
    isLogged() {
@@ -44,22 +47,26 @@ export class UsuarioService {
      if (localStorage.getItem('token')) {
       this.token = localStorage.getItem('token');
       this.user = JSON.parse(localStorage.getItem('user'));
+      this.menu = JSON.parse(localStorage.getItem('menu'));
      } else {
        this.token = '';
        this.user = null;
+       this.menu = [];
      }
    }
 
    // Save Local Storage
-   saveStorage(id: string, token: string, user: User) {
+   saveStorage(id: string, token: string, user: User, menu: any) {
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
     // Usuario como es un objeto lo guardo como string porq sólo eso acepta el Storages
     localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('menu', JSON.stringify(menu));
 
     // Setear los valores
     this.user = user;
     this.token = token;
+    this.menu = menu;
 
    }
 
@@ -71,7 +78,8 @@ export class UsuarioService {
       return this.http.post(url, { token })
         .pipe(
           map((resp: any) => {
-            this.saveStorage(resp.id, resp.token, resp.user);
+            console.log(resp);
+            this.saveStorage(resp.id, resp.token, resp.user, resp.menu);
             return true;
           }));
      }
@@ -88,7 +96,7 @@ export class UsuarioService {
       .pipe(
         map( (resp: any) => {
           swal('Login exitoso', resp.user.name + ':' + ' ' + user.email, 'success');
-          this.saveStorage(resp.id, resp.token, resp.user);
+          this.saveStorage(resp.id, resp.token, resp.user, resp.menu);
           // Retorno un true ya no se va a devolver nada en el componente login
           return true;
         }));
@@ -117,7 +125,7 @@ export class UsuarioService {
 
         if ( user._id === this.user._id ) {
           const userDB: User = resp.updatedUser;
-          this.saveStorage(userDB._id, this.token, userDB);
+          this.saveStorage(userDB._id, this.token, userDB, this.menu);
         }
          swal('Usuario actualizado', user.name, 'success');
          return true;
@@ -129,7 +137,7 @@ export class UsuarioService {
       .then( (resp: any) => { // Debido a que devuelve una promesa
         this.user.img = resp.updatedUser.img;
         swal('Foto actualizada', this.user.name, 'success');
-        this.saveStorage(id, this.token, this.user);
+        this.saveStorage(id, this.token, this.user, this.menu);
         console.log(resp);
       })
       .catch(resp => {
