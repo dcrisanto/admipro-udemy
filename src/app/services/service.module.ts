@@ -10,6 +10,7 @@ import {
           SidebarService,
           UsuarioService,
           LoginGuardGuard,
+          AdminGuard,
           UploadFileService,
           HospitalService,
           MedicService } from './service.index';
@@ -28,6 +29,7 @@ import {
       SidebarService,
       UsuarioService,
       LoginGuardGuard,
+      AdminGuard,
       UploadFileService,
       ModalUploadService,
       HospitalService,
