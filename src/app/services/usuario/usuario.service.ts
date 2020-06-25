@@ -132,6 +132,7 @@ export class UsuarioService {
        }));
    }
 
+   // Actualizando imagen
    changeImage(file: File, id: string) {
     this.uploadFileService.uploadFile(file, 'users', id)
       .then( (resp: any) => { // Debido a que devuelve una promesa
@@ -145,12 +146,14 @@ export class UsuarioService {
       });
    }
 
+   // Cargar usuarios
    loadUsers( since: number = 0) {
     const url = URL_PATH_USER + '?since=' + since;
     // Para notificar a usersComponent cuando termine
     return this.http.get(url);
    }
 
+   // Buscar usuarios
    searchUsers ( term: string ) {
     const url = URL_SEARCH_USERS + term;
     return this.http.get(url)
@@ -159,6 +162,7 @@ export class UsuarioService {
       )
     }
 
+    // Borrar usuario
     deleteUser( id: string ) {
       const url = URL_PATH_USER + '/' + id + '?token=' + this.token;
       return this.http.delete(url)
